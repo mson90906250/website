@@ -1,6 +1,5 @@
 var opendata = [];//用於接收opendata的資料
 
-
 		$(function(){
 		//ajax接收opendata
 			$.ajax({
@@ -43,15 +42,20 @@ var opendata = [];//用於接收opendata的資料
 			var infowindow = new google.maps.InfoWindow();
 			//設定地圖的中心點
 			var map_div = document.getElementById("map_div");
-			// //取得經緯度
-			// var lat = 24.170566;
-			// var lng = 120.609932;
+			//取得經緯度
+			var lat = 24.170566;
+			var lng = 120.609932;
 
-			// //方法會將坐標轉成複雜的數字
-			// var latlng = new google.maps.LatLng(lat,lng);
+			//方法會將坐標轉成複雜的數字
+			var latlng = new google.maps.LatLng(lat,lng);
 
 
-			
+			var gmap = new google.maps.Map(map_div,{//選擇要呈現地圖的框架
+				zoom:8,//放大的倍率(8倍大約可以將整個台灣顯示出來)
+				center:latlng,//設置地圖的中心點
+				mapTypeId:google.maps.MapTypeId.ROADMAP//設置地圖種類
+			});
+
 
 			//設置多個地標
 			var marker = [];
@@ -60,12 +64,6 @@ var opendata = [];//用於接收opendata的資料
 
 
 			latlng = new google.maps.LatLng(opendata[i].wgsY,opendata[i].wgsX);
-
-			var gmap = new google.maps.Map(map_div,{//選擇要呈現地圖的框架
-				zoom:8,//放大的倍率(8倍大約可以將整個台灣顯示出來)
-				center:latlng,//設置地圖的中心點
-				mapTypeId:google.maps.MapTypeId.ROADMAP//設置地圖種類
-			});
 
 			//建立標記記錄指定的地點
 				marker[i] = new google.maps.Marker({
@@ -89,9 +87,9 @@ var opendata = [];//用於接收opendata的資料
 						//取得距離
 						var dist = getDistance(lat,lng,opendata[j].wgsY,opendata[j].wgsX);
 						
-						//若距離符合設定則顯示訊息視窗 <div><p>Name= "+opendata[j].parkName+"</p><p>剩餘車位= "+opendata[j].surplusSpace+"</p></div>
-						if (dist<0.005) {
-							infowindow.setContent("123");
+						//若距離符合設定則顯示訊息視窗
+						if (dist<0.05) {
+							infowindow.setContent("<div><p>Name= "+opendata[j].parkName+"</p><p>剩餘車位= "+opendata[j].surplusSpace+"</p></div>");
 							infowindow.open(gmap,marker[j]);//設定訊息視窗出現的位置
 						}//if					
 					}//for
