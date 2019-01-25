@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>註冊表單</title>
+	<link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css" type="text/css">
+	<script src="js/jquery-2.1.0.min.js" type="text/javascript"></script>
+	<script src="js/jquery.mobile-1.4.5.min.js" type="text/javascript"></script>
+	<script>
+		$(function(){
+			$("#username").bind("input propertychange",checkLength);
+			$("#account").bind("input propertychange",checkLength01);
+			$("#pwd").bind("input propertychange",checkLength02);
+			$("#id").bind("input propertychange",checkLength03);
+			$("#show").bind("click",showResult);
+			$("#cancel").bind("click",clear);
+		})
+		function checkLength(){
+			if($("#username").val().length<2){
+				$("#msg_username").css("color","red");
+				$("#msg_username").text("名字不得少於2個字");
+			}else{
+				$("#msg_username").text("");
+			}
+		}
+		function checkLength01(){
+			if($("#account").val().length<6){
+				$("#msg_account").css("color","red");
+				$("#msg_account").text("帳號不得少於6個字");
+			}else{
+				$("#msg_account").text("");
+			}
+		}
+		function checkLength02(){
+			if($("#pwd").val().length<8){
+				$("#msg_pwd").css("color","red");
+				$("#msg_pwd").text("密碼不得少於8個字");
+			}else{
+				$("#msg_pwd").text("");
+			}
+		}
+		function checkLength03(){
+			if($("#id").val().length!=10){
+				$("#msg_id").css("color","red");
+				$("#msg_id").text("身份證字號必須為10個字");
+			}else{
+				$("#msg_id").text("");
+			}
+		}
+		function clear(){
+			$("input").val("");
+		}
+		function showResult(){
+			var entertainment = [];
+			$.each($("input[name='entertainment']:checked"),function(){
+				entertainment.push($(this).val());
+			})
+			var r = new Array($("#r1"),$("#r2"),$("#r3"),$("#r4"),$("#r5"),$("#r6"),$("#r7"),$("#r8"),$("#r9"),$("#r10"),$("#r11"),$("#r12"));
+			var name = new Array("姓名: ","帳號: ","密碼: ","生日: ","性別: ","身高(cm): ","體重: ",
+								 "身份證字號: ","居住地區: ","血型: ","最高學歷: ","休閒娛樂: ");
+			var value = new Array($("#username"),$("#account"),$("#pwd"),$("#bday"),$("#sex"),$("#height"),$("#weight"),
+				                  $("#id"),$("#region"),$("input[name='bltype']:checked"),$("input[name='edu']:checked"));
+			/* 將生日的值轉成毫秒
+			var d = $("#bday").val();
+			var dateParts = new Date((Number(d.split("-")[0])), (Number(d.split("-")[1]) - 1), (Number(d.split("-")[2])));
+			var dateis = dateParts.getTime();
+			*/
+			
+			if($("#username").val().length<2||$("#account").val().length<6||$("#pwd").val().length<8||$("#id").val().length!=10||$("#bday").val().length!=10){
+				for(var i=0;i<12;i++){
+					r[i].text("");
+				}
+				alert("請符合各項目的規定");
+				$("#show").attr("href","#");
+			}else{
+				$("#show").attr("href","#result");
+				for(var i=0;i<12;i++){
+					if(i<11){
+						r[i].text(name[i]+value[i].val());
+					}else{
+						r[i].text(name[i]+entertainment.join(" , "));
+					}			
+				}
+			}
+			
+
+
+			/*if($("#username").val().length==0||$("#account").val().length==0||$("#pwd").val().length==0||$("#id").val().length==0){
+				alert("請填完所有項目");
+				$("#show").attr("href","#");
+			}else{
+				$("#show").attr("href","#result");
+				$("#r1").text("姓名: "+$("#username").val());
+				$("#r2").text("帳號: "+$("#account").val());
+				$("#r3").text("密碼: "+$("#pwd").val());
+				$("#r4").text("生日: "+$("#bday").val());
+				$("#r5").text("性別: "+$("#sex").val());
+				$("#r6").text("身高(cm): "+$("#height").val());
+				$("#r7").text("體重: "+$("#weight").val());
+				$("#r8").text("身份證字號: "+$("#id").val());
+				$("#r9").text("居住地區: "+$("#region").val());
+				$("#r10").text("血型: "+$("input[name='bltype']:checked").val());
+				$("#r11").text("最高學歷: "+$("input[name='edu']:checked").val());
+				$("#r12").text("休閒娛樂: "+entertainment.join(" , "));
+			}*/
+			
+
+			
+							 
+						  
+		}
+		
+	</script>
+</head>
+
+<body>
+	<!-- Home -->
+	<div data-role="page" id="home">
+		
+		<div data-role="header" data-position="fixed" data-theme="b">
+			<h1>註冊表單</h1>
+		</div>
+		<!-- header end -->
+		
+		<div role="main" class="ui-content">
+			<div data-role="fieldcontain">
+				<label for="username">姓名:</label>
+				<input type="text" name="username" id="username">
+			</div>
+			<div id="msg_username"></div>
+			<div data-role="fieldcontain">
+				<label for="account">帳號:</label>
+				<input type="text" name="account" id="account">
+			</div>
+			<div id="msg_account"></div>
+			<div data-role="fieldcontain">
+				<label for="pwd">密碼:</label>
+				<input type="password" name="pwd" id="pwd">
+			</div>
+			<div id="msg_pwd"></div>
+			<div data-role="fieldcontain">
+				<label for="bday">生日:</label>
+				<input type="date" name="bday" id="bday">
+			</div>
+			<div data-role="fieldcontain">
+				<label for="sex">性別:</label>
+				<select name="sex" id="sex" data-role="slider">
+					<option value="female">女</option>
+					<option value="male">男</option>
+				</select>
+			</div>
+			<div data-role="fieldcontain">
+				<label for="height">身高(cm):</label>
+				<input type="range" name="height" id="height" value="150" min="100" max="220" step="1"><!--step預設為1-->
+			</div>
+			<div data-role="fieldcontain">
+				<label for="weight">體重:</label>
+				<input type="range" name="weight" id="weight" value="50" min="30" max="150" step="1"><!--step預設為1-->
+			</div>
+			<div data-role="fieldcontain">
+				<label for="id">身份證字號:</label>
+				<input type="text" name="id" id="id">
+			</div>
+			<div id="msg_id"></div>
+			<div data-role="fieldcontain">
+				<label for="region">居住地區</label>
+				<select name="region" id="region">
+					<option value="r01">北部</option>
+					<option value="r02">中部</option>
+					<option value="r03">南部</option>
+					<option value="r04">東部</option>
+				</select>
+			</div>
+			<div data-role="fieldcontain">
+				 <fieldset data-role="controlgroup" data-type="horizontal"><!--如果要水平呈現,加data-type="horizontal"-->
+					 <legend>血型:</legend><!--legend為大標題-->
+					 <input type="radio" name="bltype" id="atype" value="A型" /><!--所有name都要相同!!!!否則會變成可複選;每個項目id和for要相同-->
+					 <label for="atype">A型</label>
+					 <input type="radio" name="bltype" id="btype" value="B型" />
+					 <label for="btype">B型</label>
+					 <input type="radio" name="bltype" id="otype" value="O型" />
+					 <label for="otype">O型</label>
+					 <input type="radio" name="bltype" id="abtype" value="AB型" />
+					 <label for="abtype">AB型</label>
+				 </fieldset>
+			 </div>
+			 <div data-role="fieldcontain">
+				 <fieldset data-role="controlgroup" data-type="horizontal"><!--如果要水平呈現,加data-type="horizontal"-->
+					 <legend>最高學歷:</legend><!--legend為大標題-->
+					 <input type="radio" name="edu" id="edu01" value="碩士" /><!--所有name都要相同!!!!否則會變成可複選;每個項目id和for要相同-->
+					 <label for="edu01">碩士</label>
+					 <input type="radio" name="edu" id="edu02" value="學士" />
+					 <label for="edu02">學士</label>
+					 <input type="radio" name="edu" id="edu03" value="專科" />
+					 <label for="edu03">專科</label>
+					 <input type="radio" name="edu" id="edu04" value="高中職" />
+					 <label for="edu04">高中職</label>
+					 <input type="radio" name="edu" id="edu05" value="其他" />
+					 <label for="edu05">其他</label>
+				 </fieldset>
+			 </div>
+	 		<div data-role="fieldcontain">
+	 			<fieldset data-role="controlgroup" data-type="horizontal"><!--如果要水平呈現,加data-type="horizontal"-->
+	 				<legend>休閒娛樂</legend><!--legend為大標題-->
+	 				<input type="checkbox" name="entertainment" id="et01" value="看書"><!--所有name都要相同!!!! 每個項目id和for要相同-->
+	 				<label for="et01">看書</label>
+	 				<input type="checkbox" name="entertainment" id="et02" value="種花">
+	 				<label for="et02">種花</label>
+	 				<input type="checkbox" name="entertainment" id="et03" value="游泳">
+	 				<label for="et03">游泳</label>
+	 				<input type="checkbox" name="entertainment" id="et04" value="騎脚踏車"><!--所有name都要相同!!!! 每個項目id和for要相同-->
+	 				<label for="et04">騎脚踏車</label>
+	 				<input type="checkbox" name="entertainment" id="et05" value="打球">
+	 				<label for="et05">打球</label>
+	 				<input type="checkbox" name="entertainment" id="et06" value="其他">
+	 				<label for="et06">其他</label>
+	 			</fieldset>
+	 		</div>
+			<div class="ui-grid-a">
+				<div class="ui-block-a">
+					<a href="#" data-role="button" data-theme="b" id="cancel">取消</a>
+				</div>
+				<div class="ui-block-b">
+					<a href="#result" data-role="button" data-theme="b" id="show" data-rel="popup" data-position-to="window">確認</a>
+				</div>
+			</div>
+	 		
+			<div data-role="popup" id="result" data-dismissible="false" width="50%">
+				<a href="#" data-role="button" data-rel="back" data-icon="delete" data-iconpos="notext" data-theme="b" class="ui-btn-right">關閉</a>
+				<img src="http://fakeimg.pl/350x20/00CED1/FFF/?text=img+placeholder">
+				<ui>
+	 				<li id="r1"></li>
+	 				<li id="r2"></li>
+	 				<li id="r3"></li>
+	 				<li id="r4"></li>
+	 				<li id="r5"></li>
+	 				<li id="r6"></li>
+	 				<li id="r7"></li>
+	 				<li id="r8"></li>
+	 				<li id="r9"></li>
+	 				<li id="r10"></li>
+	 				<li id="r11"></li>
+	 				<li id="r12"></li>
+	 			</ui>
+		
+			</div>
+	 		
+	 		
+			
+
+
+			
+		</div>
+		<!-- main end -->
+		
+		<div data-role="footer" data-position="fixed" data-theme="b">
+			
+		</div>
+		<!-- footer end -->
+	</div>
+	<!-- Home end -->
+	<!-- result
+		<div data-role="page" id="iii">
+			
+			<div data-role="header" data-position="fixed" data-theme="b">
+				<h1>結果</h1>
+			</div>
+			header end
+			
+			<div role="main" class="ui-content">
+				<div id="result">
+	 			
+	 		</div>
+			</div>
+			main end
+			
+			
+		</div>
+		result end -->
+	
+	
+</body>
+</html>

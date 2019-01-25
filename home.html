@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>Document</title>
+	<link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css" type="text/css">
+	<script src="js/jquery-2.1.0.min.js" type="text/javascript"></script>
+	<script src="js/jquery.mobile-1.4.5.min.js" type="text/javascript"></script>
+	<style>
+		.pimg{
+			width: 75%;
+			margin-top: 0;
+			margin-bottom: 0;
+			margin-right: auto;
+			margin-left: auto;
+			text-align: center;
+		}
+		.pimg>img{
+			width: 50vw;
+			height: 30vw;
+			box-shadow: 10px 10px 50px 10px #bbb;
+			border-radius:150px;
+		}
+		.ptext{
+			text-align: center;
+		}
+
+	</style>
+	<script>
+		$(function(){
+			setInterval(show_ad,5000);
+			setInterval(show_txt1,4000);
+			setInterval(show_txt2,3000);
+			$( document ).on( "swipeleft swiperight", "#home", function( e ) {
+			 // We check if there is no open panel on the page because otherwise
+			 // a swipe to close the left panel would also open the right panel (and v.v.).
+			 // We do this by checking the data that the framework stores on the page element (panel: open).
+			 if ( $.mobile.activePage.jqmData( "panel" ) !== "open" ) {
+			 if ( e.type === "swipeleft" ) {
+			 $( "#right-panel" ).panel( "open" );
+			 } else if ( e.type === "swiperight" ) {
+			 $( "#left-panel" ).panel( "open" );
+			 }
+			 }
+			 });
+
+			$("#btn_login").bind("click",check);
+
+		})
+
+		//圖片輪播用
+		var flag = 0;//作為標記,在圖片及文字上做標記 
+		var arrimg_src = new Array("01.jpg","02.jpg","03.jpg","04.jpg","05.jpg","06.jpg",
+									"07.jpg","08.jpg","09.jpg");//放置圖片的檔名or路徑,請自行更改
+
+		function show_ad(){
+			flag --;
+			if (flag<0) {flag = 8}//數字依陣列的長度而定
+			img_src = "image/"+arrimg_src[flag];//做出完整的相對路徑,記得改成自己的
+			$("#pimg01").attr("src",img_src);//給<img>設定id="pimg01"
+		}	
+		//展覽公告區
+		var iflag = 0;//作為標記,在圖片及文字上做標記 
+		var txt01_src = new Array("散文特展","名人傳記特展","名畫特展");//放置圖片的檔名or路徑,請自行更改
+
+		function show_txt1(){
+			iflag --;
+			if (iflag<0) {iflag = 2}//數字依陣列的長度而定
+			txt1_src = txt01_src[iflag];//做出完整的相對路徑,記得改成自己的
+			$("#ptext01").text(txt1_src);//給<p>id="ptext01"
+		}	
+		//最新商品優惠區
+		var iiflag = 0;//作為標記,在圖片及文字上做標記 
+		var txt02_src = new Array("大特價 A01","大特價 A02" ,"大特價 A03","大特價 A04" );//放置圖片的檔名or路徑,請自行更改
+
+		function show_txt2(){
+			iiflag ++;
+			if (iiflag>3) {iiflag = 0}//數字依陣列的長度而定
+			txt2_src = txt02_src[iiflag];//做出完整的相對路徑,記得改成自己的
+			$("#ptext02").text(txt2_src);//給<p>id="ptext01"
+		}	
+
+		function check(){
+			if ($("#username").val()=="admin"&&$("#pwd").val()=="123456") {
+				alert("登入成功");
+			}else{
+				alert("帳號或密碼有誤");
+			}
+		}
+
+	</script>
+	
+</head>
+
+<body>
+	<!-- Home -->
+	<div data-role="page" id="home">
+		<div data-role="panel" id="left-panel" data-theme="b" >
+			  <h1 style="text-align: center;">主選單</h1>
+			  <ul data-role="listview" ">
+				 <li style="text-align: center;><a href="#">博物館列表</a></li>
+				 <li style="text-align: center;><a href="#">照片集</a></li>
+				 <li style="text-align: center;><a href="#">會員註冊</a></li>
+ 			  </ul>
+		 </div><!-- /panel -->
+		 <div data-role="panel" id="right-panel" data-display="push" data-position="right" data-theme="c">
+			 		<h1 style="text-align: center;">登入</h1>
+			 		<div role="main" class="ui-content">
+			 			<div data-role="fieldcontain">
+							<label for="username">帳號:</label>
+							<input type="text" name="username" id="username">
+						</div>
+						<div id="msg_username"></div>
+
+						<div data-role="fieldcontain">
+							<label for="pwd">密碼:</label>
+							<input type="password" name="pwd" id="pwd">
+						</div>
+						<div id="msg_pwd"></div>
+						<div class="ui-grid-a">
+							<div class="ui-block-a">
+								<a href="#" data-role="button" id="btn_login" data-theme="b">登入</a>
+							</div>
+							<div class="ui-block-b">
+								<a href="member.html" data-role="button" id="btn_reg" data-theme="b">註冊</a>
+							</div>
+						</div>
+			 		</div> 				
+		 </div><!-- /panel -->
+		
+		<div data-role="header" data-position="fixed" data-theme="b">
+			<h1>Home</h1>
+			<a href="#left-panel" data-theme="d" data-icon="arrow-r" data-iconpos="notext" datashadow="false" data-iconshadow="false" class="ui-icon-nodisc">Open left panel</a>
+			 <a href="#right-panel" data-theme="d" data-icon="arrow-l" data-iconpos="notext" datashadow="false" data-iconshadow="false" class="ui-icon-nodisc">Open right panel</a>
+		</div>
+			
+		<!-- header end -->
+		
+		<div role="main" class="ui-content">
+			<div class="pimg" style="text-align: center;">
+				<img src="image/01.jpg" alt="" id="pimg01">
+			</div>
+			<div class="ptext">
+				<p id="ptext01">散文特展</p>
+			<div class="ptext">
+				<a href="http://exam.tcnr01.com/number.html" id="a01">
+			<p id="ptext02">大特價 A01</p></a>
+		<div class="ui-grid-a">
+			<div class="ui-block-a">
+				<a href="#" data-role="button" data-theme="b">博物館列表</a>
+			</div>
+			<div class="ui-block-b">
+				<a href="#" data-role="button" data-theme="b">照片集</a>
+			</div>
+			<div class="ui-block-a">
+				<a href="#" data-role="button" data-theme="b">會員注冊</a>
+			</div>
+			<div class="ui-block-b">
+				
+			</div>
+		</div>
+
+
+ 	</div>
+		</div>
+		<!-- main end -->
+		
+		
+	</div>
+	<!-- Home end -->
+	
+</body>
+</html>

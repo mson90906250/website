@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>Document</title>
+	<link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css" type="text/css">
+	<script src="js/jquery-2.1.0.min.js" type="text/javascript"></script>
+	<script src="js/jquery.mobile-1.4.5.min.js" type="text/javascript"></script>
+	<script>
+        var book_id = 0;
+
+		function get_book_info(mode){
+			
+			$.get("get_book_info.php",{book_id:book_id,mode:mode},function(data){
+				book_id = data.book_id;
+				$("#bookimg").attr("src","image/"+data.image_name);
+				$("#bookmsg").html(data.description);
+			},"json")
+		}
+	</script>
+	<style>
+		.home_img{
+			text-align: center;
+		}
+	</style>
+</head>
+
+<body>
+	<!-- Home -->
+	<div data-role="page" id="home">
+		
+		<div data-role="header" data-position="fixed" data-theme="b">
+			<h1>行動商品目錄</h1>
+		</div>
+		<!-- header end -->
+		
+		<div role="main" class="ui-content">
+			<div class="home_img">
+				<img src="http://fakeimg.pl/350x200/00CED1/FFF/?text=img+placeholder">
+			</div>
+			<a href="#intro" data-rel="dialog" data-role="button" data-theme="a">快樂出版社簡介</a>
+			<a href="#book" data-role="button" data-theme="a">書籍介紹</a>
+
+		</div>
+		<!-- main end -->
+		
+		<div data-role="footer" data-position="fixed" data-theme="b">
+			<h3>快樂出版社</h3>
+		</div>
+		<!-- footer end -->
+	</div>
+	<!-- Home end -->
+	
+	<!-- intro -->
+	<div data-role="page" id="intro">
+		
+		<div data-role="header" data-position="fixed" data-theme="b">
+			<h1>快樂出版簡介</h1>
+		</div>
+		<!-- header end -->
+		
+		<div role="main" class="ui-content">
+			<p>和平必要出版觀看有意無奈反應高校眾人誘惑那位是以電視，心中真是保留分類吸收體驗素質，試題大全所在地。	</p>
+		</div>
+		<!-- main end -->
+		
+		
+	</div>
+	<!-- intro end -->
+	
+	<!-- book -->
+	<div data-role="page" id="book">
+		
+		<div data-role="header" data-position="fixed" data-theme="b">
+			<h1>書籍介紹</h1>
+		</div>
+		<!-- header end -->
+		
+		<div role="main" class="ui-content">
+			<div align="center">
+				<img id="bookimg" src="" alt="" width="20%">
+			</div>
+			<p id="bookmsg"></p> 
+		</div>
+		<!-- main end -->
+		<div data-role="footer" data-position="fixed" data-theme="b">
+			<div data-role="navbar">
+				<ul>
+					<li> <a href="#">回首頁</a> </li>
+					<li> <a href="javascript:get_book_info('prev')"> 上一筆</a> </li>
+					<li> <a href="javascript:get_book_info('next')"> 下一筆</a> </li>
+				</ul>
+			</div>
+		</div>
+		<!-- footer end -->
+		
+	</div>
+	<!-- book end -->
+
+	
+</body>
+</html>

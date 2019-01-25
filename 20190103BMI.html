@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>Document</title>
+	<link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css" type="text/css">
+	<script src="js/jquery-2.1.0.min.js" type="text/javascript"></script>
+	<script src="js/jquery.mobile-1.4.5.min.js" type="text/javascript"></script>
+	<script>
+		$(function(){
+			$("#cal").bind("click",insert);
+		})
+		function insert(){
+			$.ajax({
+				type:"POST",
+				url:"http://192.168.60.101/website/BMI.php",
+				data:{name:$("#name").val(),kg:$("#weight").val(),cm:$("#height").val()},
+				success: show,
+				error: function(){
+					alert("error");
+				}
+			})
+		}
+		function show(d){
+			$("#msg").html(d);
+		}
+	</script>
+</head>
+
+<body>
+	<!-- Home -->
+	<div data-role="page" id="home">
+		
+		<div data-role="header" data-position="fixed" data-theme="b">
+			<h1>Home</h1>
+		</div>
+		<!-- header end -->
+		
+		<div role="main" class="ui-content">
+			<div data-role="fieldcontain">
+				<label for="name">姓名:</label>
+				<input type="text" name="name" id="name">
+			</div>
+			<div data-role="fieldcontain">
+				<label for="height">身高:</label>
+				<input type="range" name="height" id="height" value="120" min="50" max="220" step="1"><!--step預設為1-->
+			</div>
+			<div data-role="fieldcontain">
+				<label for="weight">體重:</label>
+				<input type="range" name="weight" id="weight" value="20" min="0" max="120" step="1"><!--step預設為1-->
+			</div>
+			<div class="ui-grid-a">
+				<div class="ui-block-a">
+					<a href="#" data-role="button" data-theme="b">取消</a>
+				</div>
+				<div class="ui-block-b">
+					<a href="#" data-role="button" data-theme="b" id="cal">計算</a>
+				</div>
+			</div>
+			<div id="msg"></div>
+			
+		</div>
+		<!-- main end -->
+		
+		<div data-role="footer" data-position="fixed" data-theme="b">
+			<h3>footer</h3>
+		</div>
+		<!-- footer end -->
+	</div>
+	<!-- Home end -->
+	
+</body>
+</html>

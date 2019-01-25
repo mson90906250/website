@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>Document</title>
+	<link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css">
+	<script src="js/jquery-2.1.0.min.js"></script>
+	<script src="js/jquery.mobile-1.4.5.min.js"></script>
+	<script>
+		$(function(){
+			$("#test").bind("click",test);
+		});
+		function test(){
+			if(true){
+				window.location.assign("file:///C:/Users/user/Desktop/mobileWEB/00.html#123");
+			}else{
+
+			}
+		}
+		// $(window).load(function () {
+		//     $(".trigger_popup_fricc").click(function(){
+		//        $('.hover_bkgr_fricc').show();
+		//     });
+		//     $('.hover_bkgr_fricc').click(function(){
+		//         $('.hover_bkgr_fricc').hide();
+		//     });
+		//     $('.popupCloseButton').click(function(){
+		//         $('.hover_bkgr_fricc').hide();
+		//     });
+		// });
+	</script>
+</head>
+<body>
+	<div data-role="page" id="home">
+		<div data-role="header" data-theme="b" data-position="fixed">
+			<h1>Home</h1>
+		</div>
+		<div role="main" class="ui-content">
+			<a href="#" data-role="button" data-theme="b" id="test">test</a>
+		</div>
+		<div data-role="footer" data-theme="b" data-position="fixed">
+			<h4>footer</h4>
+		</div>
+	</div>
+	<div data-role="page" id="123">
+		<div data-role="header">
+			<h1>he</h1>
+		</div>
+		<div role="main" class="ui-content">
+			<img src="http://fakeimg.pl/450x200/ffaad5/3a006f/?text=No.8_WuDianChin" width="100%">
+		</div>
+		<div data-role="footer">
+			<h4>footer</h4>
+		</div>
+	</div>
+</body>
+</html>

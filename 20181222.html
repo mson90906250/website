@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>Document</title>
+	<link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css" type="text/css">
+	<script src="js/jquery-2.1.0.min.js" type="text/javascript"></script>
+	<script src="js/jquery.mobile-1.4.5.min.js" type="text/javascript"></script>
+	<script>
+		$( document ).on( "pagecreate", "#home", function() {
+    $( document ).on( "swipeleft swiperight", "#home", function( e ) {
+        // We check if there is no open panel on the page because otherwise
+        // a swipe to close the left panel would also open the right panel (and v.v.).
+        // We do this by checking the data that the framework stores on the page element (panel: open).
+        if ( $( ".ui-page-active" ).jqmData( "panel" ) !== "open" ) {
+            if ( e.type === "swipeleft" ) {
+                $( "#home_panel_right" ).panel( "open" );
+            } else if ( e.type === "swiperight" ) {
+                $( "#home_panel" ).panel( "open" );
+            }
+        }
+    });
+});
+	</script>
+</head>
+
+<body>
+	
+	<!-- Home -->
+	<div data-role="page" id="home" data-url="demo-page">
+		<!-- header -->
+		<div data-role="header" data-position="fixed" data-theme="b">
+			<a href="#home_panel" data-theme="b">left panel!</a>
+			<h1>Home</h1>
+			<a href="#home_panel_right"  data-theme="b">right panel</a>
+		</div>
+		<!-- header end -->
+		<!-- main -->
+		<div role="main" class="ui-content">
+			<img src="image/dog04.jpg"  alt="">
+
+		</div>
+		<!-- main end -->
+			<div data-role="panel" id="home_panel_right" data-position="right" data-display="reveal">
+    <!-- panel content goes here -->
+    		<img src="http://fakeimg.pl/350x200/00CED1/FFF/?text=img+placeholder" >
+    		<p>報名十二種類官方相互</p>
+		</div><!-- /panel -->
+		<div data-role="panel" id="home_panel" data-display="reveal">
+    <!-- panel content goes here -->
+    		<img src="http://fakeimg.pl/350x200/00CED1/FFF/?text=img+placeholder" >
+    		<p>報名十二種類官方相互</p>
+		</div><!-- /panel -->
+		
+	</div>
+	<!-- Home end -->
+	
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Document</title>
+	<!-- 載入google map api -->
+	<script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCSnyMTQAIeclcmF-1y1ufEj3mzZb6sPx4" type="text/javascript"></script>
+	<!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCSnyMTQAIeclcmF-1y1ufEj3mzZb6sPx4&callback=initMap" type="text/javascript"></script>
+ -->
+	<link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css">
+	<script src="js/jquery-2.1.0.min.js"></script>
+	<script src="js/jquery.mobile-1.4.5.min.js"></script>
+	<script language="javascript">
+		$(function(){
+			//設定地圖的中心點
+			var map_div = document.getElementById("map_div");
+			//取得經緯度
+			var lat = 24.170566;
+			var lng = 120.609932;
+
+			var latlng = new google.maps.LatLng(lat,lng);
+
+			var gmap = new google.maps.Map(map_div,{
+				zoom:15,
+				center:latlng,
+				mapTypeId:google.maps.MapTypeId.ROADMAP
+			});
+
+			//建立標記記錄指定的地點
+			var marker = new google.maps.Marker({
+				position:latlng,
+				icon:"image/icon/flag.png",
+				map:gmap,
+				title:"Somewhere!!!"
+			});
+
+			//給與標記一個訊息視窗
+			google.maps.event.addListener(marker,"click",function(event){
+				var infowindow = new google.maps.InfoWindow({
+					content:"<div class='infowindow_div'><div class='info'><a href='#info_img_popup' data-rel='popup' data-position-to='window'><img class='info_img' src='image/tcnr.jpg' alt=''></a></div><p>勞動部勞動力發展署中彰投分署（臺中職訓局）</p>	<p>地址： 407台中市西屯區工業區一路100號</p><p>官網:<a href='https://tcnr.wda.gov.tw/'>https://tcnr.wda.gov.tw/</a></p>	</div>",
+				});
+				infowindow.open(gmap,marker);//設定訊息視窗出現的位置
+			});
+
+
+
+
+		});//end fun
+	</script>
+	<style>
+		.google_map_div{
+			margin:0 auto 0 auto;
+			border: solid 1px;
+			width: 75vw;
+			height: 50vh;
+			box-shadow: 0px 0px 50px 20px #ccc;
+		}
+		.info{
+			/*margin:0 auto 0 auto;  沒有作用*/
+			text-align: center;
+		}
+		.info_img{
+			height: 100px;
+			width: 200px;
+		}
+	</style>
+</head>
+
+<body>
+	<div data-role="page" id="home">
+		<div data-role="header" data-position="fixed" id="home" data-theme="b">
+			<h1>Home</h1>
+		</div>
+		<div role="main" class="ui-content">
+			
+			<div class="google_map_div" id="map_div"></div>
+			<!-- 放置Google map的div end -->
+			
+			
+			<div data-role="popup" id="info_img_popup" data-dismissible="false">
+				<a href='#' data-role='button' data-rel='back' data-icon='delete' data-iconpos='notext' class='ui-btn-right' >關閉</a>
+				<img src="image/tcnr.jpg" alt="">
+			</div>
+			<!-- popup的div end-->
+			
+		</div>
+		<div data-role="footer" data-position="fixed" data-theme="b">
+			<h1>footer</h1>
+		</div>
+	</div>
+</body>
+</html>	
+
+<!-- <div><img src="image/tcnr.jpg" alt=""><p>勞動部勞動力發展署中彰投分署（臺中職訓局）</p>	<p>地址： 407台中市西屯區工業區一路100號</p><p>官網:<a href="https://tcnr.wda.gov.tw/">https://tcnr.wda.gov.tw/</a></p>	</div> -->	
+
+<!-- <a href='#info_img_popup' data-rel='popup' data-position-to='window'></a> -->

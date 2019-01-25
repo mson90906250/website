@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>Document</title>
+	<link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css" type="text/css">
+	<script src="js/jquery-2.1.0.min.js" type="text/javascript"></script>
+	<script src="js/jquery.mobile-1.4.5.min.js" type="text/javascript"></script>
+	<script>
+		$(function(){
+			$.ajax({
+				type: "GET",
+				url: "http://192.168.60.102/mobileWEB/20190103-echophp.php",
+				success: show,
+				error: function(){
+					alert("資料接收失敗!!");
+				}
+			});
+		})
+		function show(data){
+			$("#showimg").html(data);
+		}
+	</script>
+</head>
+
+<body>
+	<!-- Home -->
+	<div data-role="page" id="home">
+		
+		<div data-role="header" data-position="fixed" data-theme="b">
+			<h1>Home</h1>
+		</div>
+		<!-- header end -->
+		
+		<div role="main" class="ui-content">
+			<div id="showimg"></div>
+			
+		<!-- main end -->
+		
+		<div data-role="footer" data-position="fixed" data-theme="b">
+			<h3>footer</h3>
+		</div>
+		<!-- footer end -->
+	</div>
+	<!-- Home end -->
+	
+</body>
+</html>

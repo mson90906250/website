@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>Document</title>
+	<link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css" type="text/css">
+	<link rel="stylesheet" href="css/for_ad_js.css">
+	<script src="js/jquery-2.1.0.min.js" type="text/javascript"></script>
+	<script src="js/jquery.mobile-1.4.5.min.js" type="text/javascript"></script>
+	<script src="js/ad_auto.js"></script>
+	<script src="js/ad_swipe.js"></script>
+
+	<script>
+		var colorVal = 0x0000FF;
+		
+		$(function(){//主方法,開啓後會自動執行
+			setInterval(flash2,1000);
+			setInterval(show_ad,2000);
+		})
+
+		function flash2(){ 
+
+			colorVal = colorVal << 1 ;
+			//if(colorVal == 0xFF0000){colorVal = 0x0000FF}
+			myColor="#"+colorVal;
+			$("#mylogo").css("background-color",myColor);
+
+		}
+
+	</script>
+	<script>
+		$( document ).on( "pagecreate", "#home", function() {
+	                $( document ).on( "swipeleft swiperight", "#home", function( e ) {
+	        // We check if there is no open panel on the page because otherwise
+	        // a swipe to close the left panel would also open the right panel (and v.v.).
+	        // We do this by checking the data that the framework stores on the page element (panel: open).
+	        if ( $( ".ui-page-active" ).jqmData( "panel" ) !== "open" ) {
+	            if ( e.type === "swipeleft" ) {
+	                $( "#home_panel_right" ).panel( "open" );
+	            } else if ( e.type === "swiperight" ) {
+	                $( "#home_panel" ).panel( "open" );
+	            }
+	        }
+	    });
+	});
+	</script>
+	<!-- <script>
+		$( document ).on( "pagecreate", "#new_product", function() {
+	                $( document ).on( "swipeleft swiperight", "#new_product", function( e ) {
+	        // We check if there is no open panel on the page because otherwise
+	        // a swipe to close the left panel would also open the right panel (and v.v.).
+	        // We do this by checking the data that the framework stores on the page element (panel: open).
+	        if ( $( ".ui-page-active" ).jqmData( "panel" ) !== "open" ) {
+	            if ( e.type === "swipeleft" ) {
+	                $( "#newproduct_panel_right" ).panel( "open" );
+	            } else if ( e.type === "swiperight" ) {
+	                $( "#newproduct_panel" ).panel( "open" );
+	            }
+	        }
+	    });
+	});
+	</script>  -->
+
+	<style>
+		.logo{
+			margin-top: 0;
+			margin-bottom: 0;
+			margin-left: auto;
+			margin-right: auto;
+			background-color: #B95959;
+			border-radius: 60px;
+
+		}
+		/* .panel-img{
+			margin-top: 0;
+			margin-bottom: 0;
+			margin-left: auto;
+			margin-right: auto;
+		} */
+	</style>
+	
+</head>
+
+<body>
+	<!-- Home -->
+	<div data-role="page" id="home">
+		
+		<div data-role="panel" id="home_panel_right" data-position="right" data-display="reveal">
+    		<div class="panel-img" align="center">
+    			<img src="image/Asus_logo.png" alt="">
+    		</div>
+    		<div>
+    			<p>電話:0800-093-456</p>
+    			<p>email:test@test.com</p>
+    			<p>地址:華碩台北皇家俱樂部 師大館台北巿大安區羅斯福路三段171號8樓 </p>
+    		</div>
+		</div><!-- /panel -->
+		
+		<div data-role="panel" id="home_panel" data-display="reveal">
+    		<ul data-role="listview" data-inset="true">
+    			<li data-role="list-divider">主選單</li>
+    			<li data-icon="home" data-theme="b"><a href="#home" data-theme="b">首頁</a></li>
+				<li data-icon="shop"><a href="#new_product" >最新產品</a></li>
+				<li data-icon="info"><a href="#about" data-rel="dialog" >關於我們</a></li>
+    		</ul>
+		</div><!-- /panel -->
+		<!-- header -->
+		<div data-role="header" data-position="fixed" data-theme="b">
+			<h1>Home</h1>
+		</div>
+		<!-- header end -->
+		<!-- main -->
+		<div role="main" class="ui-content" >
+			<div class="logo" id="mylogo">
+				<img id="logo_img" src="image/me01.jpg" width="100%" alt="">
+			</div>
+			<div class="ui-grid-a" >
+				<div class="ui-block-a" >
+					<a href="https://www.asus.com/tw/" data-role="button" data-theme="b"  data-icon="home">ASUS</a>
+				</div>
+				<div class="ui-block-b">
+					<a href="https://www.asus.com/tw/support/" data-role="button" data-theme="b" data-icon="star">Support</a>
+				</div>
+			</div>
+		</div>
+		<!-- main end -->
+		<!-- footer -->
+		<div data-role="footer" data-position="fixed" data-theme="b">
+			
+		</div>
+		<!-- footer end -->
+	</div>
+	<!-- Home end -->
+	<!-- new_product -->
+		<div data-role="page" id="new_product">
+			
+			<div data-role="panel" id="newproduct_panel_right" data-position="right" data-display="reveal" >
+	    		<div class="panel-img">
+	    			<img src="image/asus01.jpg" alt="" id="pimg01">
+	    		</div>
+	    		<div class="panel-text">
+	    			<a href="#" id="a01">
+	    				<p id="ptext01">ZenFone 5z</p>
+	    			</a>
+	    		</div>
+		    </div><!-- /panel -->
+		
+			<div data-role="panel" id="newproduct_panel" data-display="reveal">
+	    		<ul data-role="listview" data-inset="true">
+	    			<li data-role="list-divider">主選單</li>
+	    			<li data-icon="home"><a href="#home" >首頁</a></li>
+					<li data-icon="shop" data-theme="b"><a href="#new_product"   >最新產品</a></li>
+					<li data-icon="info"><a href="#about" data-rel="dialog"  >關於我們</a></li>
+	    		</ul>
+			</div><!-- /panel -->
+			
+			<!-- header -->
+			<div data-role="header" data-position="fixed" data-theme="b">
+				<a href="#newproduct_panel" data-role="button" data-icon="carat-r" id="showprev">left panel</a>
+				<h1>最新產品</h1>
+				<a href="#newproduct_panel_right" data-role="button" data-icon="carat-l" id="shownext">right panel</a>
+			</div>
+			<!-- header end -->
+			<!-- main -->
+			<div role="main" class="ui-content" style="text-align: center;">
+				<div class="pimg">
+					<img src="image/asus01.jpg" alt="" id="pimg02">
+				</div>
+				<div class="ptext">
+					<a href="https://www.asus.com/tw/Phone/ZenFone-5Z-ZS620KL/" id="adswipe">
+						<p id="ptext02">ASUS ZenFone 5z</p></a>
+				</div>
+				
+			</div>
+			<!-- main end -->
+			<!-- footer -->
+			<div data-role="footer" data-position="fixed" data-theme="b">
+				
+			</div>
+			<!-- footer end -->
+		</div>
+		<!-- new_product end -->
+		<!-- about -->
+			<div data-role="page" id="about">
+				<!-- header -->
+				<div data-role="header" data-position="fixed" data-theme="b">
+					<h1>關於我們</h1>
+				</div>
+				<!-- header end -->
+				<!-- main -->
+				<div role="main" class="ui-content">
+					<div class="pabout">
+						<ul data-role="listview">
+							<li>
+								<a href="#">
+									<img src="http://fakeimg.pl/100x100/00CED1/FFF/?text=img+placeholder">
+									<p>賓館一件整個優質不少閲讀者智，變成男生對於之前專利目標怎麼辦文字有一定對著共享大家都，做到著名動力。</p>
+								</a>
+								
+							</li>
+							<li>
+								<img src="http://fakeimg.pl/100x100/00CED1/FFF/?text=img+placeholder">
+								定位感受設立求購來看，執行時間為止到我危險達到建，隨着主角資訊簡體重大智能高興生日，痛苦暫無地理包。
+							</li>
+							<li>
+								<img src="http://fakeimg.pl/100x100/00CED1/FFF/?text=img+placeholder">
+								記得就要能不能歌手之前選項而是出版社國內，恢復清除南方聯繫人長大靜靜日常有限公司節目管，死亡一套難。
+							</li>
+						</ul>
+
+						<h1>Origin of the Name "ASUS"</h1>
+						<p>
+						從一個專業的自有品牌，到行銷全球的國際3C品牌，華碩自始至終都堅持不可妥協的品質與創新。在中文命名以「華人之碩」為期許，而英文命名的靈感則來自希臘神話中的天馬「PEGASUS」，其象徵著聖潔、完美與純真的形象，代表著華碩永不懈怠、追求卓越的精神。
+
+						華碩電腦股份有限公司創立於1989年，為全球最大的主機板製造商，並躋身全球前三大消費性筆記型電腦品牌。華碩始終對品質與創新全力以赴，不斷為消費者及企業用戶提供嶄新的科技解決方案。2012年獲得全球專業媒體與評鑑機構共4,168個獎項的肯定。2011年，華碩開啟追尋無與倫比的全球任務，將精彩創新的品牌精神提昇至更高層次。同年推出市場上叫好又叫座的變形平板，備受國內外專業人士激賞；10月再推超極緻輕薄筆電ZENBOOK，除了將技術傾注於外型與輕薄的表現，更刻畫出智慧型筆電隨開即用、綠色高效的新時代價值。2012年發表結合手機、平板、小筆電跨界功能的PadFone，震撼市場，奠定華碩的精采研發創新實力。現在，更積極布局未來的行動雲端時代，將為世界創造無限可能。在著重創新與品質之餘，華碩亦投注心力於社會公益、教育文化及綠色環保等方面，並在歐、美、日及台灣本地等國際環保標章上領先取得多項肯定與認證，以設計體貼人性、感動人心的3C科技產品為初衷，持續為消費者帶來無與倫比的體驗價值。</p>
+				</div>
+					</div>
+					
+				<!-- main end -->
+			</div>
+			<!-- about end -->
+		
+	
+</body>
+</html>

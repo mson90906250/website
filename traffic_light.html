@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Traffic Light</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css">
+	<script src="js/jquery-2.1.0.min.js"></script>
+	<script src="js/jquery.mobile-1.4.5.min.js"></script>	
+	<style>
+		.ui-grid-b{
+			background-color: #ccc;
+			padding:10px,10px,10px,10px;
+			/* margin-top: 0;
+			margin-bottom: 0;
+			margin-left: auto;
+			margin-right: auto; */
+		}
+		.tl01,.tl02,.tl03{
+			height: 31vw;
+			border-radius: 50%;
+			border: solid 20px;
+		}
+	</style>
+	<script>
+		var flag = 0;
+		// var arrColor = new Array("red","yellow","green");
+		$(function(){
+			setInterval(traffic_light,2000);
+		})
+		function traffic_light(){
+			
+			$("#t1,#t2,#t3").css("background-color","0x00000000");
+			//$("#tl02").css("background-color","0x00000000");
+			//$("#tl03").css("background-color","0x00000000");			
+			switch(flag){
+				case 0:
+					$("#t1").css("background-color","red");
+					flag=1;
+					break;
+				case 1:
+					$("#t2").css("background-color","yellow");
+					flag=2;
+					break;
+				case 2:
+					$("#t3").css("background-color","green");
+					flag=0;
+					break;			
+			}
+			
+		}
+		
+		
+	</script>
+</head>
+<body>
+	<div data-role="page" id="home">
+		<div class="ui-grid-b">
+			<div class="ui-block-a">
+				<div class="tl01" id="t1"></div>
+			</div>
+			<div class="ui-block-b">
+				<div class="tl02" id="t2"></div>
+			</div>
+			<div class="ui-block-c">
+				<div class="tl03" id="t3"></div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>Document</title>
+	<link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css" type="text/css">
+	<script src="js/jquery-2.1.0.min.js" type="text/javascript"></script>
+	<script src="js/jquery.mobile-1.4.5.min.js" type="text/javascript"></script>
+	<script>
+		$(function(){
+			$.ajax({
+				type:"GET",
+				url: "http://192.168.60.101/website/get_opendata.php",//opendata來源
+				dataType: "json",
+				success: show,
+				error: function(){
+					alert("無資料接收");
+				}
+
+			});
+		});
+
+		function show(data){
+			alert(data[0].Coordinate);
+			llarr = data[0].Coordinate.split(",");
+			alert(llarr[0]);
+			alert(llarr[1]);
+		}
+	</script>
+</head>
+
+<body>
+	<!-- Home -->
+	<div data-role="page" id="home">
+		
+		<div data-role="header" data-position="fixed" data-theme="b">
+			<h1>Home</h1>
+		</div>
+		<!-- header end -->
+		
+		<div role="main" class="ui-content">
+			<div id="msg"></div>
+		</div>
+		<!-- main end -->
+		
+		<div data-role="footer" data-position="fixed" data-theme="b">
+			<h3>footer</h3>
+		</div>
+		<!-- footer end -->
+	</div>
+	<!-- Home end -->
+	
+</body>
+</html>
