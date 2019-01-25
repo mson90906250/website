@@ -1,5 +1,6 @@
 var opendata = [];//用於接收opendata的資料
 
+
 		$(function(){
 		//ajax接收opendata
 			$.ajax({
@@ -39,6 +40,8 @@ var opendata = [];//用於接收opendata的資料
 		}
 
 		function createMap(){
+			var infowindow = new google.maps.InfoWindow();
+			
 			//設定地圖的中心點
 			var map_div = document.getElementById("map_div");
 			//取得經緯度
@@ -55,21 +58,21 @@ var opendata = [];//用於接收opendata的資料
 				mapTypeId:google.maps.MapTypeId.ROADMAP//設置地圖種類
 			});
 
-		//建立標記記錄指定的地點
-			var marker = new google.maps.Marker({
-				position:latlng,
-				icon:"image/icon/flag.png",
-				map:gmap,
-				title:"Somewhere!!!"
-			});
+		// //建立標記記錄指定的地點
+		// 	var marker = new google.maps.Marker({
+		// 		position:latlng,
+		// 		icon:"image/icon/flag.png",
+		// 		map:gmap,
+		// 		title:"Somewhere!!!"
+		// 	});
 
-		//給與標記一個訊息視窗
-			google.maps.event.addListener(marker,"click",function(event){
-				var infowindow = new google.maps.InfoWindow({
-					content:"<div class='infowindow_div'><div class='info'><a href='#info_img_popup' data-rel='popup' data-position-to='window'><img class='info_img' src='image/tcnr.jpg' alt=''></a></div><p>勞動部勞動力發展署中彰投分署（臺中職訓局）</p>	<p>地址： 407台中市西屯區工業區一路100號</p><p>官網:<a href='https://tcnr.wda.gov.tw/'>https://tcnr.wda.gov.tw/</a></p>	</div>",
-				});
-				infowindow.open(gmap,marker);//設定訊息視窗出現的位置
-			});
+		// //給與標記一個訊息視窗
+		// 	google.maps.event.addListener(marker,"click",function(event){
+		// 		var infowindow = new google.maps.InfoWindow({
+		// 			content:"<div class='infowindow_div'><div class='info'><a href='#info_img_popup' data-rel='popup' data-position-to='window'><img class='info_img' src='image/tcnr.jpg' alt=''></a></div><p>勞動部勞動力發展署中彰投分署（臺中職訓局）</p>	<p>地址： 407台中市西屯區工業區一路100號</p><p>官網:<a href='https://tcnr.wda.gov.tw/'>https://tcnr.wda.gov.tw/</a></p>	</div>",
+		// 		});
+		// 		infowindow.open(gmap,marker);//設定訊息視窗出現的位置
+		// 	});
 
 			//設置多個地標
 			var marker = [];
@@ -89,6 +92,7 @@ var opendata = [];//用於接收opendata的資料
 
 				//給與標記一個訊息視窗
 				google.maps.event.addListener(marker[i],"click",function(event){
+					infowindow.close();
 					
 					//取得在地圖上觸發點擊的坐標
 					var lat = event.latLng.lat();//取維度
@@ -103,9 +107,11 @@ var opendata = [];//用於接收opendata的資料
 						
 						//若距離符合設定則顯示訊息視窗
 						if (dist<0.05) {
-							var infowindow = new google.maps.InfoWindow({
-								content: "<div><p>Name= "+opendata[j].parkName+"</p><p>剩餘車位= "+opendata[j].surplusSpace+"</p></div>",
-							});
+							// var infowindow = new google.maps.InfoWindow({
+							// 	content: "<div><p>Name= "+opendata[j].parkName+"</p><p>剩餘車位= "+opendata[j].surplusSpace+"</p></div>",
+							// });
+							infowindow.setContent("<div><p>Name= "+opendata[j].parkName+"</p><p>剩餘車位= "+opendata[j].surplusSpace+"</p></div>");
+
 							infowindow.open(gmap,marker[j]);//設定訊息視窗出現的位置
 						}//if					
 					}//for
