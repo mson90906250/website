@@ -45,7 +45,8 @@
 
 
 				//$("#msg").append(data[i].book_id+data[i].image_name+data[i].description+"<br>");
-				$("#bbb").append("<div data-role='popup' id='a0"+i+"' data-dismissible='false'><a href='#' data-role='button' data-rel='back' data-icon='delete' data-iconpos='notext' class='ui-btn-right' >關閉</a></div>");
+				//若要完整的呈現popup請在append一個popup框架後再加.trigger("create");
+				$("#bbb").append("<div data-role='popup' id='a0"+i+"' data-dismissible='false'><a href='#' data-role='button' data-rel='back' data-icon='delete' data-iconpos='notext' class='ui-btn-right' >關閉</a></div>").trigger("create");
 				$("#a0"+i).append("<img src='image/"+data[i].img+"' width='100%' alt=''>");
 				$("#a0"+i).append("<p>品名:"+data[i].Title+"</p>");
 				$("#a0"+i).append("<p>價格:"+data[i].price+"</p>");
@@ -56,7 +57,7 @@
 
 			}
 
-			$("#home").load(location.href+" #home>*","");
+			
 		}
 
 	</script>
