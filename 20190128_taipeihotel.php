@@ -81,7 +81,6 @@
 		var regionData = [];
 		var regionTitle = [];
 		var counter = [];
-		var opendata ;
 
 		$(function(){
 			$.ajax({
@@ -100,8 +99,6 @@
 			/*console.log(data[99]["display_addr"].substring(0,data[99]["display_addr"].indexOf("區",0)+1));
 			console.log(data.length);*/
 
-			//將data的内容指定給opendata以作為map使用
-			opendata = data;
 
 			//開始建立資料結構
 			for(var i=0; i<data.length; i++){
@@ -112,6 +109,8 @@
 
 					counter[getRegion] = regionData.length;
 					regionData.push(new Array());
+
+					//處理沒有區名的地址
 					if(getRegion==""){
 						regionTitle[counter[getRegion]] = "其他區域";
 					}else{
@@ -133,13 +132,13 @@
 			
 			for(var i=0; i<regionTitle.length; i++){
 
-				var hotel_name = "";
-				var hotel_addr = "";
-				var hotel_tel = "";
-				var hotel_X = "";
-				var hotel_Y = "";
+				var hotel_name = "";//飯店名稱
+				var hotel_addr = "";//地址
+				var hotel_tel = "";//電話
+				var hotel_X = "";//經度
+				var hotel_Y = "";//緯度
 
-				//將需要傳遞的信息放入變數裡
+				//將需要傳遞的信息放入變數裡,並以"|"作區隔
 				for(var j=0; j<regionData[i].length; j++){
 					hotel_name+= regionData[i][j]["name"]+"|";
 					hotel_addr+= regionData[i][j]["display_addr"]+"|";
@@ -167,12 +166,15 @@
 		}
 
 		function getItem(regionTitle,hotel_name,hotel_addr,hotel_tel,hotel_X,hotel_Y){
-			console.log(regionTitle);
-			console.log(hotel_name);
-			console.log(hotel_addr);
-			console.log(hotel_tel);
-			console.log(hotel_X);
-			console.log(hotel_Y);
+			
+			//debbug用的
+			// console.log(regionTitle);
+			// console.log(hotel_name);
+			// console.log(hotel_addr);
+			// console.log(hotel_tel);
+			// console.log(hotel_X);
+			// console.log(hotel_Y);
+
 			//設定title
 			$("#hotel_title").html(regionTitle+"飯店");
 			//將得到的資料丟如陣列
@@ -205,17 +207,18 @@
 				}
 				
 
-				//$("#msg").append(data[i].book_id+data[i].image_name+data[i].description+"<br>");
 				//若要完整的呈現popup請在append一個popup框架後再加.trigger("create");
 				$("#hotel_map").append("<div data-role='popup' id='a0"+i+"'  style='background-color:white;'><a href='#' data-role='button' data-rel='back' data-icon='delete' data-iconpos='notext' class='ui-btn-right' >關閉</a></div>").trigger("create");
 				$("#a0"+i).append('<div class="google_map_div" id="map_div0'+i+'"></div>');
 				$("#a0"+i).append("<div><p>飯店名稱:"+hotel_namearr[i]+"</p></div>");
 
+				//製作地圖
 				createMap("map_div0"+i,hotel_Xarr[i],hotel_Yarr[i],hotel_namearr[i],hotel_addrarr[i],hotel_telarr[i]);
 
 
 				
 			}
+			//重新讀取listview
 			$("#hotel_output").listview("refresh");
 
 			/*//設置監聽
@@ -229,7 +232,7 @@
 
 		function createMap(mapdiv,X,Y,hotel_name,hotel_addr,hotel_tel){
 			
-
+			//設定infowindow為共用變數可避免在同一地圖上出現多個infowindow
 			var infowindow = new google.maps.InfoWindow();
 			
 			//設定地圖的中心點
