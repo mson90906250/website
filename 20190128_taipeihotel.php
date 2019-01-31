@@ -49,7 +49,7 @@
 			<!-- header end -->
 			
 			<div role="main" class="ui-content">
-				<div style="text-align: center;"><img src="image/dog04.jpg"  alt=""></div>
+				<div class="google_map_div" id="map_diva"></div>
 				<ul data-role="listview" data-inset="true" id="hotel_output">
 					<li data-icon="star">
 						<p>飯店名稱</p>
@@ -81,6 +81,7 @@
 		var regionData = [];
 		var regionTitle = [];
 		var counter = [];
+
 
 		$(function(){
 			$.ajax({
@@ -218,16 +219,103 @@
 
 				
 			}
+			makeMap(hotel_Xarr,hotel_Yarr,hotel_namearr,hotel_addrarr,hotel_telarr);
 			//重新讀取listview
 			$("#hotel_output").listview("refresh");
+			
 
-			/*//設置監聽
-			$("a",$("#hotel_output")).on("click",function(){
-				forSearch($("a",$("#hotel_output")).attr("addr"));
-			});*/
+		}
+
+		function makeMap(hotel_Xarr,hotel_Yarr,hotel_namearr,hotel_addrarr,hotel_telarr){
+			console.log("hotel_namearr="+hotel_namearr);
+			var infowindow = new google.maps.InfoWindow();
+			
+			//設定地圖的中心點
+			var map_div = document.getElementById("map_diva");
+			//取得經緯度
+			var lat = hotel_Yarr[0];
+			var lng = hotel_Xarr[0];
+
+			//方法會將坐標轉成複雜的數字
+			var latlng = new google.maps.LatLng(lat,lng);
 
 
+			var gmap = new google.maps.Map(map_div,{//選擇要呈現地圖的框架
+				zoom:14,//放大的倍率(8倍大約可以將整個台灣顯示出來)
+				center:latlng,//設置地圖的中心點
+				mapTypeId:google.maps.MapTypeId.ROADMAP//設置地圖種類
+			});
 
+		// //建立標記記錄指定的地點
+		// 	var marker = new google.maps.Marker({
+		// 		position:latlng,
+		// 		icon:"image/icon/flag.png",
+		// 		map:gmap,
+		// 		title:"Somewhere!!!"
+		// 	});
+
+		// //給與標記一個訊息視窗
+		// 	google.maps.event.addListener(marker,"click",function(event){
+		// 		var infowindow = new google.maps.InfoWindow({
+		// 			content:"<div class='infowindow_div'><div class='info'><a href='#info_img_popup' data-rel='popup' data-position-to='window'><img class='info_img' src='image/tcnr.jpg' alt=''></a></div><p>勞動部勞動力發展署中彰投分署（臺中職訓局）</p>	<p>地址： 407台中市西屯區工業區一路100號</p><p>官網:<a href='https://tcnr.wda.gov.tw/'>https://tcnr.wda.gov.tw/</a></p>	</div>",
+		// 		});
+		// 		infowindow.open(gmap,marker);//設定訊息視窗出現的位置
+		// 	});
+
+			//設置多個地標
+			var marker = [];
+	
+			for(var i = 0; i<hotel_namearr.length; i++){
+
+
+			latlng = new google.maps.LatLng(hotel_Yarr[i],hotel_Xarr[i]);
+
+			//建立標記記錄指定的地點
+				marker[i] = new google.maps.Marker({
+				position:latlng,
+				icon:"image/icon/flag.png",
+				map:gmap,
+				title: hotel_namearr[i],
+			});
+
+				//給與標記一個訊息視窗
+				google.maps.event.addListener(marker[i],"click",function(event){
+					infowindow.close();
+					
+					//取得在地圖上觸發點擊的坐標
+					var lat = event.latLng.lat();//取緯度
+					var lng = event.latLng.lng();//取經度
+
+					//算出與各地標距離,並從中選取最短且符合設定的距離
+					for(var j=0; j<hotel_namearr.length; j++){
+
+						
+						//取得距離
+						var dist = getDistance(lat,lng,hotel_Yarr[j],hotel_Xarr[j]);
+						
+						//若距離符合設定則顯示訊息視窗
+						if (dist<0.05) {
+							// var infowindow = new google.maps.InfoWindow({
+							// 	content: "<div><p>Name= "+opendata[j].parkName+"</p><p>剩餘車位= "+opendata[j].surplusSpace+"</p></div>",
+							// });
+
+							infowindow.setContent("<div id='infowindow_info'><p>Name= "+hotel_namearr[j]+"</p><a href='javascript:forSearch(\""+hotel_addrarr[j]+"\")'><p>"+hotel_addrarr[j]+"</p></a><a href='tel:"+hotel_telarr[j]+"'><p>"+hotel_telarr[j]+"</p></a></div>");
+
+							/*//設置監聽
+							$("#a_openmap",$("#infowindow_info")).on("click",function(){
+								console.log($("a",$("#infowindow_info")).attr("addr"));
+								forSearch($("a",$("#infowindow_info")).attr("addr"));
+							});*/
+
+							infowindow.open(gmap,marker[j]);//設定訊息視窗出現的位置
+						}//if					
+					}//for
+					
+				});
+
+			}//for
+			
+			
 		}
 
 		function createMap(mapdiv,X,Y,hotel_name,hotel_addr,hotel_tel){
@@ -261,16 +349,30 @@
 
 		//給與標記一個訊息視窗
 			google.maps.event.addListener(marker,"click",function(event){
-				var infowindow = new google.maps.InfoWindow({
-					content:"<div class='infowindow_div'><h2>"+hotel_name+"</h2><p>"+hotel_addr+"</p><a href='tel:"+hotel_tel+"'><p>tel="+hotel_tel+"</p></a></div>",
-				});
+				infowindow.setContent("<div class='infowindow_div'><h2>"+hotel_name+"</h2><p>"+hotel_addr+"</p><a href='tel:"+hotel_tel+"'><p>"+hotel_tel+"</p></a></div>");
 				infowindow.open(gmap,marker);//設定訊息視窗出現的位置
 			});
 		}
 
-		/*function forSearch(addr){
+		function forSearch(addr){
 			window.open("http://maps.google.com/maps?hl=zh-TW&q="+addr);
-		}*/
+		}
+
+		//算出距離的公式
+		function getDistance(Lat1, Long1, Lat2, Long2){
+			ConvertDegreeToRadians=function(degrees){
+				return (Math.PI/180)*degrees;
+			}
+			var Lat1r = ConvertDegreeToRadians(Lat1);
+			var Lat2r = ConvertDegreeToRadians(Lat2);
+			var Long1r = ConvertDegreeToRadians(Long1);
+			var Long2r = ConvertDegreeToRadians(Long2);
+
+			var R = 6371; // 地球半徑(km)
+			var d = Math.acos(Math.sin(Lat1r) * Math.sin(Lat2r) +
+			 Math.cos(Lat1r) * Math.cos(Lat2r) * Math.cos(Long2r-Long1r)) * R;
+			return d; // 兩點的距離 (KM)
+		}
 
 	</script>
 	
