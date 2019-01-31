@@ -14,4 +14,6 @@
 	}else {
 		echo "新增資料失敗";
 	}
+
+	mysqli_close($link);
 ?>

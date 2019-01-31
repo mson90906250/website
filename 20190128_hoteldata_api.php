@@ -10,7 +10,7 @@ if (!$link) {
 
 $sql = 'SELECT * FROM hoteldata';
 
-$result = execute_sql($link,'hotel',$sql);
+$result = execute_sql($link,'demoDB',$sql);
 
 $arr = array();
 
