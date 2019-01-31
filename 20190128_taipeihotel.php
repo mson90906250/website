@@ -262,7 +262,7 @@
 		//給與標記一個訊息視窗
 			google.maps.event.addListener(marker,"click",function(event){
 				var infowindow = new google.maps.InfoWindow({
-					content:"<div class='infowindow_div'><h3>"+hotel_name+"<h3><p>地址="+hotel_addr+"</p><a href='tel:"+hotel_tel+"'><p>tel="+hotel_tel+"</p></a></div>",
+					content:"<div class='infowindow_div'><h2>"+hotel_name+"</h2><p>"+hotel_addr+"</p><a href='tel:"+hotel_tel+"'><p>tel="+hotel_tel+"</p></a></div>",
 				});
 				infowindow.open(gmap,marker);//設定訊息視窗出現的位置
 			});
