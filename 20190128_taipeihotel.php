@@ -199,9 +199,15 @@
 				var str = '<li data-icon="star"><a href="#a0'+i+'" data-rel="popup" addr="'+hotel_addrarr[i]+'"><h3>'+hotel_namearr[i]+'</h3><p>'+hotel_addrarr[i]+'</p><p>'+hotel_telarr[i]+'</p></a></li>';	
 				$("#hotel_output").append(str);
 
+				//如果該popup已存在,將其内容清空
+				if($("#a0"+i).length){
+					$("#a0"+i).empty();
+				}
+				
+
 				//$("#msg").append(data[i].book_id+data[i].image_name+data[i].description+"<br>");
 				//若要完整的呈現popup請在append一個popup框架後再加.trigger("create");
-				$("#hotel_map").append("<div data-role='popup' id='a0"+i+"' data-dismissible='false' style='background-color:white;'><a href='#' data-role='button' data-rel='back' data-icon='delete' data-iconpos='notext' class='ui-btn-right' >關閉</a></div>").trigger("create");
+				$("#hotel_map").append("<div data-role='popup' id='a0"+i+"'  style='background-color:white;'><a href='#' data-role='button' data-rel='back' data-icon='delete' data-iconpos='notext' class='ui-btn-right' >關閉</a></div>").trigger("create");
 				$("#a0"+i).append('<div class="google_map_div" id="map_div0'+i+'"></div>');
 				$("#a0"+i).append("<div><p>飯店名稱:"+hotel_namearr[i]+"</p></div>");
 
@@ -222,6 +228,8 @@
 		}
 
 		function createMap(mapdiv,X,Y,hotel_name,hotel_addr,hotel_tel){
+			
+
 			var infowindow = new google.maps.InfoWindow();
 			
 			//設定地圖的中心點
@@ -245,7 +253,7 @@
 				position:latlng,
 				icon:"image/icon/flag.png",
 				map:gmap,
-				title:"Somewhere!!!"
+				title: hotel_name
 			});
 
 		//給與標記一個訊息視窗
