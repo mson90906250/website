@@ -74,7 +74,8 @@
 
     <!-- javascript -->
     <!-- 載入google map api -->
-	<script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCSnyMTQAIeclcmF-1y1ufEj3mzZb6sPx4" type="text/javascript"></script>
+	<!-- <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCSnyMTQAIeclcmF-1y1ufEj3mzZb6sPx4" type="text/javascript"></script> -->
+	<script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC-be5pwhgwxTsdF35doJEbsUw086Hbso8" type="text/javascript"></script>
 	<script src="js/jquery-2.1.0.min.js" type="text/javascript"></script>
 	<script src="js/jquery.mobile-1.4.5.min.js" type="text/javascript"></script>
 	<script>
