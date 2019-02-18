@@ -9,14 +9,23 @@
 
 	$link = create_connection();
 
-	$sql = "INSERT INTO member(username,password,bday,sex) VALUES ('$Username','$Password','$Bday','$Sex')";
+	//判別帳號是否已被註冊
+	$sql = "SELECT * FROM member WHERE username = '$Username'";
+	$Result = execute_sql($link,"demoDB",$sql);
 
-	if(execute_sql($link,"demoDB",$sql)){
-		echo "login success";
+	if(mysqli_num_rows($Result) >= 1){
+		echo "此帳號已被使用,請更換";
 	}else{
-		echo "login fail";
+		$sql = "INSERT INTO member(username,password,bday,sex) VALUES ('$Username','$Password','$Bday','$Sex')";
+
+		if(execute_sql($link,"demoDB",$sql)){
+			echo "register success";
+		}else{
+			echo "register fail";
+		}
 	}
 
+	
 	$link->close();
 
 
