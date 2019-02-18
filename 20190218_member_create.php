@@ -85,7 +85,7 @@
 
 			$("#password").on("input propertychange",function(){
 				if ($("#password").val().length < 10) {
-					$("#msg_password").html("帳號不得少於10個字");
+					$("#msg_password").html("密碼不得少於10個字");
 					$("#msg_password").css({"background-color":"red","color":"white"});
 					flag_pwd = false;
 				}else{
@@ -123,10 +123,10 @@
 		}
 
 		function changePage(data){
-			if(data == "login success"){
-				location.href = "./20190218-member-read.php";
+			if(data == "register success"){
+				location.href = "20190218_member_login.php";
 			}else{
-				alert("註冊失敗!");
+				alert(data);
 			}
 		}
 	</script>
