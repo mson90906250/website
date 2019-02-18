@@ -1,4 +1,5 @@
 <?php 
+	session_start();
 
 	$Username = $_POST["username"];
 	$Password = $_POST["password"];
@@ -16,6 +17,8 @@
 	if(mysqli_num_rows($Result) >= 1){
 		echo "此帳號已被使用,請更換";
 	}else{
+		$_SESSION["username"] = $Username;
+		
 		$sql = "INSERT INTO member(username,password,bday,sex) VALUES ('$Username','$Password','$Bday','$Sex')";
 
 		if(execute_sql($link,"demoDB",$sql)){

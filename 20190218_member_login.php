@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,7 +22,7 @@
 		<div role="main" class="ui-content">
 			<div data-role="fieldcontain">
 				<label for="username">帳號:</label>
-				<input type="text" name="username" id="username">
+				<input type="text" name="username" id="username" value="<?php echo $_SESSION['username'] ?>">
 			</div>
 			<div id="msg_username"></div>
 
@@ -65,7 +66,7 @@
 
 		function goToConsole(data){
 			if(data == "login success"){
-				location.href = "20190218_member_console.php";
+				location.href = "20190218_main.php";
 			}else{
 				alert(data);
 			}
