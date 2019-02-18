@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1">
-	<title>Document</title>
+	<title>會員註冊</title>
 	<link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css" type="text/css">
 	<script src="js/jquery-2.1.0.min.js" type="text/javascript"></script>
 	<script src="js/jquery.mobile-1.4.5.min.js" type="text/javascript"></script>
@@ -14,7 +14,7 @@
 	<div data-role="page" id="home">
 		
 		<div data-role="header" data-position="fixed" data-theme="b">
-			<h1>Home</h1>
+			<h1>會員註冊</h1>
 		</div>
 		<!-- header end -->
 		
