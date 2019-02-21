@@ -36,7 +36,7 @@
 		<div role="main" class="ui-content">
 			<div data-role="fieldcontain">
 				<label for="username">帳號:</label>
-				<input type="text" name="username" id="username" value="<?php echo $row['username'] ?>">
+				<input type="text" name="username" id="username"  value="<?php echo $row['username'] ?>">
 			</div>
 			<div id="msg_username"></div>
 
@@ -60,10 +60,10 @@
 
 			<div class="ui-grid-a">
 				<div class="ui-block-a">
-					<a href="#" data-role="button" data-theme="b" id="cancel">取消</a>
+					<a href="#" data-role="button" data-theme="b" id="cancel01" onclick="location.href = '20190218_member_read.php'">取消</a>
 				</div>
 				<div class="ui-block-b">
-					<a href="#" data-role="button" data-theme="b" id="update_ok">更新</a>
+					<a href="#" data-role="button" data-theme="b" id="update_ok" >更新</a>
 				</div>
 			</div>
 	
@@ -86,8 +86,13 @@
 
 		function update(){
 			if($("#username").val().length<5||$("#password").val().length<10){
-				alert("帳號或密碼不符合規定");
+				$("#msg_username").css({"color":"red"});
+				$("#msg_username").html("帳號不得少於5個字");
+				$("#msg_password").css({"color":"red"});
+				$("#msg_password").html("密碼不得少於10個字");
 			}else{
+				$("#msg_username").html("");
+				$("#msg_password").html("");
 				$.ajax({
 					type:"POST",
 					url:"memberAPI/20190218_member_update_api.php",

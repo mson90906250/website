@@ -22,7 +22,7 @@
 		<div role="main" class="ui-content">
 			<div data-role="fieldcontain">
 				<label for="username">帳號:</label>
-				<input type="text" name="username" id="username" value="<?php echo $_SESSION['username'] ?>">
+				<input type="text" name="username" id="username" value="<?php if($_SESSION['username']!=null){echo $_SESSION['username'];}  ?>">
 			</div>
 			<div id="msg_username"></div>
 

@@ -87,7 +87,15 @@
 		function showData(data){
 			$("mTbody").empty();
 			for(var i=0 ; i<data.length ; i++){
-				$("#mTbody").append("<tr><td>"+data[i].id+"</td><td>"+data[i].username+"</td><td>"+data[i].password+"</td><td>"+data[i].bday+"</td><td>"+data[i].sex+"</td><td>"+data[i].create_time+"</td><td><a href='20190218_member_update.php?id="+data[i].id+"' class='btn btn-primary mr5'>更新</a><a href='#' class='btn btn-danger'>刪除</a></td></tr>");
+				$("#mTbody").append("<tr><td>"+data[i].id+"</td><td>"+data[i].username+"</td><td>"+data[i].password+"</td><td>"+data[i].bday+"</td><td>"+data[i].sex+"</td><td>"+data[i].create_time+"</td><td><a id='update0"+data[i].id+"' href='20190218_member_update.php?id="+data[i].id+"' class='btn btn-primary mr5'>更新</a><a href='#'  data-id='"+data[i].id+"' class='btn btn-danger' onclick='deleteData(this)'>刪除</a></td></tr>");
+				//另一種寫法 <a  href='memberAPI/20190221_member_delete_api.php?id="+data[i].id+"'  class='btn btn-danger' onclick='confirm(\"確定要刪除嗎?\")'>刪除</a>
+			}
+		}
+
+		function deleteData(btn){
+			var db_id = $(btn).data('id');
+			if(confirm("確定要刪除嗎?")){
+				 location.href = "memberAPI/20190221_member_delete_api.php?id="+db_id;
 			}
 		}
 	</script>
