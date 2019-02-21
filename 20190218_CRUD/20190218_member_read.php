@@ -1,5 +1,13 @@
-<?php require_once "memberAPI/20190218_getmember_api.php" ?>
-
+<?php 
+	session_start();
+	if(isset($_SESSION['username'])){
+		echo '<script> alert("歡迎'.$_SESSION['username'].'會員回來"); </script>';
+	}else{
+		echo '<script> alert("請先登入會員");
+		location.href = "20190218_member_login.php"; </script>';
+	}
+	require_once "memberAPI/20190218_getmember_api.php" 
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>

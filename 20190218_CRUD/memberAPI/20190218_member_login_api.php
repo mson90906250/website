@@ -1,4 +1,5 @@
 <?php 
+	session_start();
 
 	$Username = $_POST["username"];
 	$Password = $_POST["password"];
@@ -11,6 +12,7 @@
 	$Result = execute_sql($link,"demoDB",$sql);
 
 	if(mysqli_num_rows($Result) == 1){
+		$_SESSION['username'] = $Username; 
 		echo "login success";
 	}else{
 		echo "login fail";

@@ -1,3 +1,7 @@
+<?php 
+	session_start();
+	session_unset($_SESSION['username']);
+ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -71,6 +75,9 @@
 		var flag_user,flag_pwd;
 
 		$(function(){
+			if($("#username").val().length>=5){
+				flag_user = true;
+			}
 
 			$("#username").on("input propertychange",function(){
 				if ($("#username").val().length < 5) {
