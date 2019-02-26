@@ -50,7 +50,7 @@
 			if(data==1){
 				location.href = "tcnr_member01.php";
 			}else{
-				alert(data);
+				alert("帳號或密碼輸入錯誤");
 			}
 		}	
 	</script>

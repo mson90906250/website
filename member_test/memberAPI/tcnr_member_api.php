@@ -14,7 +14,7 @@
 	switch ($query_type) {
 		case 'member':
 			//抓一筆資料
-			$sql = "SELECT * FROM member_test WHERE username = '$Username'";
+			$sql = "SELECT * FROM member_test WHERE username = '$Username' ";
 			$result = execute_sql($link,"demoDB",$sql);
 
 			//確認有無資料
@@ -28,7 +28,7 @@
 						break;
 					case 'a':
 						$_SESSION['usertype'] = $output['usertype'];
-						$sql = "SELECT * FROM member_test";
+						$sql = "SELECT * FROM member_test ORDER BY id ASC";
 						$result = execute_sql($link,"demoDB",$sql);
 						while($output = mysqli_fetch_assoc($result)){
 							$data[] = $output;
@@ -48,7 +48,7 @@
 
 			//測試帳號密碼是否正確
 			//$sql = "SELECT * FROM members_test WHERE username = 'owner01' AND password = '1234567890' ";
-			$sql = "SELECT * FROM member_test WHERE username = '$Username' AND password = '$Password' ";
+			$sql = "SELECT * FROM member_test WHERE username = BINARY '$Username' AND password = BINARY '$Password' ";
 
 			$result=execute_sql($link, "demoDB", $sql);
 			if(mysqli_num_rows($result) ==1){
@@ -77,15 +77,17 @@
 			$username=$_POST["username"];
 			$password=$_POST["password"];
 			
-			if(isset($_SESSION['usertype'])){
-				$usertype=$_POST["usertype"];
-			}
+			// if(isset($_SESSION['usertype'])){
+			// 	echo "<script> console.log(".$_SESSION['usertype'].") </script>"
+			// 	$usertype=$_SESSION['usertype'];
+			// }
 			
 			$email=$_POST["email"];
 
 			require_once("../dbtools.inc.php");
 			$link=create_connection();
 			if(isset($_POST["usertype"])){
+				$usertype = $_POST["usertype"];
 				$sql = "UPDATE member_test SET username='$username', password='$password', usertype= '$usertype', email = '$email' WHERE id='$id'";
 			}else{
 				$usertype = "n";
@@ -109,8 +111,18 @@
 			require_once("../dbtools.inc.php");
 			$link = create_connection();
 
+			//check if member already existed
+			//BINARY 可避免大小寫和空白的問題
+			$sql = "SELECT * FROM member_test WHERE username = BINARY '$Username'";
+			$result = execute_sql($link,"demoDB",$sql);
+			if(mysqli_num_rows($result)>0){
+				echo "此帳號已存在! 請更換";
+				break;
+			}
+
+
 			$sql = "INSERT INTO member_test (id, username, password, usertype, email) 
-				Values('', '$Username', '$Password', 'n', '$Email')";
+				Values('', BINARY '$Username', '$Password', 'n', '$Email')";
 			if(execute_sql($link, "demoDB", $sql)){
 				echo "reg sucess";
 			}else{

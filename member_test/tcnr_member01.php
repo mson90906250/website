@@ -68,8 +68,9 @@
 			var usertype = "<?php echo $_SESSION['usertype']; ?>";
 
 			if(usertype == "a"){
+				$("#t_table").append('<thead><tr><th></th><th class="text-center">id</th><th class="text-center">username</th><th class="text-center">password</th><th class="text-center">usertype</th><th></th></tr></thead>');
 				for(var i=0; i<data.length ;i++){
-					$("#t_table").append('<thead><tr><th></th><th class="text-center">id</th><th class="text-center">username</th><th class="text-center">password</th><th class="text-center">usertype</th><th></th></tr></thead><tbody><tr><td><a href="tcnr_update01.php?id='+data[i].id+'"><span class="glyphicon glyphicon-pencil"></span></a></td><td>'+data[i].id+'</td><td>'+data[i].username+'</td><td>'+data[i].password+'</td><td>'+data[i].usertype+'</td><td><a href="#" id="btn0'+data[i].id+'"><span class="glyphicon glyphicon-remove"></span></a></td></tr></tbody>');
+					$("#t_table").append('<tbody><tr><td><a href="tcnr_update01.php?id='+data[i].id+'"><span class="glyphicon glyphicon-pencil"></span></a></td><td>'+data[i].id+'</td><td>'+data[i].username+'</td><td>'+data[i].password+'</td><td>'+data[i].usertype+'</td><td><a href="#" id="btn0'+data[i].id+'"><span class="glyphicon glyphicon-remove"></span></a></td></tr></tbody>');
 
 					$("#btn0"+data[i].id).on("click",null,{id:data[i].id},check);
 				}
